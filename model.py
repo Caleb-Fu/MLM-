@@ -3,7 +3,6 @@ from torch.utils.data import TensorDataset, DataLoader, RandomSampler, Sequentia
 from keras.preprocessing.sequence import pad_sequences
 from sklearn.model_selection import train_test_split
 from pytorch_pretrained_bert import BertTokenizer, BertConfig
-from pytorch_pretrained_bert import BertAdam, BertForSequenceClassification
 from tqdm import tqdm, trange
 import pandas as pd
 import io
@@ -38,9 +37,6 @@ for seq in input_ids:
 
 print(len(attention_masks[0]))
 
-
-model = BertForSequenceClassification.from_pretrained("bert-base-uncased", num_labels=1)
-model.cuda()
 
 
 
