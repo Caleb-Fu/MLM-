@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 Tokenizeration
 '''
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
-tokenized_texts = [tokenizer.tokenize('[CLS]  i want to fly from boston at 838 am and arrive in denver at 1110 in the morning  [SEP]')]
+tokenized_texts = [tokenizer.tokenize('[CLS]  i want to fly from shanghai at 838 am and arrive in Toronto at 1110 in the morning  [SEP]')]
 print ("Tokenize the first sentence:")
 print (tokenized_texts)
 # Set the maximum sequence length. 
