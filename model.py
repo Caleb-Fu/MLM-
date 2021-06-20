@@ -3,6 +3,7 @@ from torch.utils.data import TensorDataset, DataLoader, RandomSampler, Sequentia
 from keras.preprocessing.sequence import pad_sequences
 from sklearn.model_selection import train_test_split
 from pytorch_pretrained_bert import BertTokenizer, BertConfig
+from pytorch_pretrained_bert import BertAdam, BertForSequenceClassification
 from tqdm import tqdm, trange
 import pandas as pd
 import io
@@ -13,7 +14,7 @@ import matplotlib.pyplot as plt
 Tokenizeration
 '''
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
-tokenized_texts = [tokenizer.tokenize('[CLS]  i want to fly from shanghai at 838 am and arrive in Toronto at 1110 in the morning  [SEP]')]
+tokenized_texts = [tokenizer.tokenize('[CLS]  i want to fly from boston at 838 am and arrive in denver at 1110 in the morning  [SEP]')]
 print ("Tokenize the first sentence:")
 print (tokenized_texts)
 # Set the maximum sequence length. 
@@ -37,7 +38,16 @@ for seq in input_ids:
 
 print(len(attention_masks[0]))
 
+train_inputs = torch.tensor(input_ids)
+train_labels = torch.tensor([[1]])
+train_masks = torch.tensor(attention_masks)
 
+batch_size = 32
+
+# Create an iterator of our data with torch DataLoader 
+train_data = TensorDataset(train_inputs, train_masks, train_labels)
+train_sampler = RandomSampler(train_data)
+train_dataloader = DataLoader(train_data, sampler=train_sampler, batch_size=batch_size)
 
 
 
